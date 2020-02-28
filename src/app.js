@@ -3,6 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
+const foldersRouter = require('./folders/foldersRoute')
+const notesRouter = require('./notes/notesRoute')
 const { NODE_ENV } = require('../config');
 
 const app = express();
@@ -28,8 +30,11 @@ app.use((error, req, res, next) => {
   res.status(500).send(response);
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
+app.use('/folders', foldersRouter)
+app.use('/notes', notesRouter)
+
+app.get('*', (req, res) => {
+  res.send('hey,!');
 });
 
 module.exports = app;
