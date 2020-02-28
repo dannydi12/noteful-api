@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = express.json();
 const foldersRouter = express.Router();
 const foldersService = require('./foldersService');
+const xss = require('xss');
 
 foldersRouter.route('/')
   .get((req, res) => {
@@ -18,7 +19,7 @@ foldersRouter.route('/')
     }
 
     const newFolder = {
-      folder_name: name
+      folder_name: xss(name)
     }
 
     const db = req.app.get('db');
@@ -45,7 +46,7 @@ foldersRouter.route('/:id')
   })
   .patch(bodyParser, (req, res) => {
     const { name } = req.body;
-    const folderToUpdate = { folder_name: name }
+    const folderToUpdate = { folder_name: xss(name) }
 
     if (!name) {
       return res.status(400).send('You must provide a name')

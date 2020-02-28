@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = express.json();
 const notesRouter = express.Router();
 const notesService = require('./notesService');
+const xss = require('xss');
 
 notesRouter.route('/')
   .get((req, res) => {
@@ -22,9 +23,9 @@ notesRouter.route('/')
     }
 
     const newNote = {
-      note_name: name,
+      note_name: xss(name),
       folder_id: folder,
-      content
+      content: xss(content)
     }
 
     const db = req.app.get('db');
@@ -52,9 +53,9 @@ notesRouter.route('/:id')
   .patch(bodyParser, (req, res) => {
     const { name, folder, content } = req.body;
     const noteToUpdate = {
-      note_name: name,
+      note_name: xss(name),
       folder_id: folder,
-      content
+      content: xss(content)
     }
 
     if (!name) {
