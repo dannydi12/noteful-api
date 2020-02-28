@@ -34,7 +34,7 @@ app.use('/api/folders', foldersRouter)
 app.use('/api/notes', notesRouter)
 
 app.get('*', (req, res) => {
-  res.send('hey,!');
+  res.status(404).end();
 });
 
 module.exports = app;
