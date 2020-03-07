@@ -1,6 +1,6 @@
-# Express Boilerplate!
+### Authors
 
-This is a boilerplate project used for starting new projects!
+Vik Birdi and Daniel DiVenere
 
 ## Set up
 
